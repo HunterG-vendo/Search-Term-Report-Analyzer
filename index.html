@@ -48,8 +48,19 @@
   .threshold-field input{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:5px;padding:6px 10px;color:var(--text);font-family:var(--mono);font-size:12px;outline:none;transition:border-color 0.15s;}
   .threshold-field input:focus{border-color:var(--green);}
   
-  .drop-zone{width:100%;max-width:560px;border:2px dashed var(--border);border-radius:14px;padding:40px;display:flex;flex-direction:column;align-items:center;gap:12px;cursor:pointer;transition:all 0.2s;background:var(--surface);}
+  .upload-type-tabs{display:flex;width:100%;max-width:560px;border-radius:10px 10px 0 0;overflow:hidden;border:1px dashed var(--border);border-bottom:none;}
+  .upload-type-tab{flex:1;padding:9px 14px;font-size:11px;font-weight:700;letter-spacing:0.05em;text-align:center;cursor:pointer;background:var(--surface);color:var(--muted);transition:all 0.15s;border:none;outline:none;border-bottom:2px solid transparent;}
+  .upload-type-tab:first-child{border-right:1px solid var(--border);}
+  .upload-type-tab.active-sp{color:var(--green);border-bottom:2px solid var(--green);background:rgba(0,229,160,0.05);}
+  .upload-type-tab.active-prompt{color:#c4b5fd;border-bottom:2px solid #8b5cf6;background:rgba(139,92,246,0.07);}
+  .upload-type-tabs.sp-active{border-color:var(--green);}
+  .upload-type-tabs.sp-active ~ .drop-zone{border-color:var(--green);}
+  .upload-type-tabs.prompt-active{border-color:#8b5cf6;}
+  .upload-type-tabs.prompt-active ~ .drop-zone{border-color:#8b5cf6;}
+  .drop-zone{width:100%;max-width:560px;border-top:none;border-left:1px dashed var(--border);border-right:1px dashed var(--border);border-bottom:1px dashed var(--border);border-radius:0 0 14px 14px;padding:40px;display:flex;flex-direction:column;align-items:center;gap:12px;cursor:pointer;transition:all 0.2s;background:var(--surface);}
   .drop-zone:hover,.drop-zone.drag-over{border-color:var(--green);background:rgba(0,229,160,0.04);}
+  .drop-zone.prompt-mode{border-color:var(--border);}
+  .drop-zone.prompt-mode:hover{border-color:rgba(139,92,246,0.7);background:rgba(139,92,246,0.05);}
   .drop-icon{font-size:32px;line-height:1;}
   .drop-label{font-size:14px;font-weight:600;color:var(--text);}
   .drop-hint{font-family:var(--mono);font-size:11px;color:var(--muted);}
@@ -57,7 +68,11 @@
   .upload-btn:hover{opacity:0.85;}
   #file-input{display:none;}
   #asin-file-input{display:none;}
-  .asin-section-title{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--text);letter-spacing:0.08em;margin-bottom:10px;text-transform:uppercase;}
+  .asin-section-title{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--text);letter-spacing:0.08em;margin-bottom:10px;text-transform:uppercase;display:flex;align-items:center;gap:7px;}
+  .help-dot{width:16px;height:16px;border-radius:50%;border:1.5px solid var(--muted);color:var(--muted);font-size:10px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;font-family:var(--mono);transition:all 0.15s;position:relative;}
+  .help-dot:hover{border-color:var(--green);color:var(--green);}
+  .help-dot .help-tooltip{display:none;position:absolute;left:22px;top:50%;transform:translateY(-50%);background:#1a1d24;border:1px solid rgba(0,229,160,0.25);border-radius:8px;padding:10px 13px;width:260px;font-size:11px;font-weight:400;line-height:1.6;color:var(--text);letter-spacing:0;text-transform:none;font-family:var(--font);z-index:100;box-shadow:0 8px 24px rgba(0,0,0,0.4);}
+  .help-dot:hover .help-tooltip{display:block;}
   .asin-boxes{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
   .asin-paste-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px;display:flex;flex-direction:column;gap:6px;}
   .asin-paste-box textarea{background:transparent;border:none;outline:none;color:var(--text);font-family:var(--mono);font-size:11px;resize:none;width:100%;height:80px;line-height:1.5;}
@@ -71,7 +86,10 @@
   .asin-upload-sub{font-family:var(--mono);font-size:10px;color:var(--muted);}
   .asin-upload-sub.loaded{color:var(--green);}
   .asin-count{font-family:var(--mono);font-size:10px;color:var(--green);font-weight:700;margin-top:4px;}
-  .file-preview{display:none;align-items:center;gap:12px;padding:16px 20px;background:var(--green-dim);border:1px solid rgba(0,229,160,0.3);border-radius:12px;width:100%;max-width:560px;}
+  .file-preview{display:none;align-items:center;gap:12px;padding:14px 20px;background:var(--green-dim);border:1px solid rgba(0,229,160,0.3);border-top:none;border-radius:0;width:100%;max-width:560px;}
+  #file-preview.visible ~ #prompt-file-preview.visible, #file-preview:not(.visible) ~ #prompt-file-preview.visible { border-radius: 0 0 10px 10px; }
+  #file-preview.visible:not(:has(~ #prompt-file-preview.visible)) { border-radius: 0 0 10px 10px; }
+  #prompt-file-preview.visible { border-radius: 0 0 10px 10px; }
   .file-preview.visible{display:flex;}
   .file-preview-icon{font-size:20px;}
   .file-preview-name{font-family:var(--mono);font-size:13px;color:var(--green);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500;}
@@ -298,6 +316,41 @@
   .neg-row-cb.checked{background:rgba(255,77,106,0.15);border-color:var(--red);}
   tr.neg-done{opacity:0.32;}
   tr.neg-done td{text-decoration:line-through;text-decoration-color:rgba(255,77,106,0.5);}
+  
+  .tab.amber-tab{color:var(--amber);border-color:rgba(255,214,0,0.3);background:rgba(255,214,0,0.06);}
+  .tab.amber-tab .tab-badge{background:var(--amber);color:#0a0c10;}
+  .tab.active.amber-tab{color:#0a0c10;background:var(--amber);border-color:var(--amber);}
+  .tab.active.amber-tab .tab-badge{background:rgba(0,0,0,0.18);color:#0a0c10;}
+  .slip-type-kw{color:var(--green);}
+  .slip-type-asin{color:var(--blue);}
+  .slip-pill{display:inline-block;padding:2px 7px;border-radius:4px;font-size:10px;font-weight:700;font-family:var(--mono);}
+  .slip-pill-kw{background:rgba(0,229,160,0.12);color:var(--green);border:1px solid rgba(0,229,160,0.3);}
+  .slip-pill-asin{background:rgba(59,130,246,0.12);color:var(--blue);border:1px solid rgba(59,130,246,0.3);}
+  
+  /* Prompt Analyzer add-on card */
+  .prompt-addon-card{margin-top:12px;border:1.5px dashed rgba(255,255,255,0.12);border-radius:10px;overflow:hidden;transition:border-color 0.2s;}
+  .prompt-addon-card.loaded{border-style:solid;border-color:rgba(139,92,246,0.4);}
+  .prompt-addon-header{display:flex;align-items:center;gap:10px;padding:12px 16px;cursor:pointer;background:rgba(139,92,246,0.05);transition:background 0.15s;}
+  .prompt-addon-header:hover{background:rgba(139,92,246,0.1);}
+  .prompt-addon-icon{font-size:16px;}
+  .prompt-addon-title{font-size:12px;font-weight:700;letter-spacing:0.05em;color:var(--muted);flex:1;}
+  .prompt-addon-card.loaded .prompt-addon-title{color:#c4b5fd;}
+  .prompt-addon-plus{width:20px;height:20px;border:1.5px solid var(--border);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--muted);transition:all 0.15s;flex-shrink:0;}
+  .prompt-addon-card.loaded .prompt-addon-plus{background:rgba(139,92,246,0.2);border-color:rgba(139,92,246,0.5);color:#c4b5fd;}
+  .prompt-addon-body{display:none;padding:12px 16px;border-top:1px solid rgba(255,255,255,0.06);}
+  .prompt-addon-body.open{display:block;}
+  .prompt-drop-zone{border:1.5px dashed rgba(139,92,246,0.3);border-radius:8px;padding:20px;text-align:center;cursor:pointer;transition:all 0.2s;background:rgba(139,92,246,0.03);}
+  .prompt-drop-zone:hover{border-color:rgba(139,92,246,0.6);background:rgba(139,92,246,0.07);}
+  .prompt-drop-zone.loaded{border-style:solid;border-color:rgba(139,92,246,0.5);background:rgba(139,92,246,0.08);cursor:default;}
+  .prompt-drop-icon{font-size:22px;margin-bottom:6px;}
+  .prompt-drop-label{font-size:12px;font-weight:600;color:#c4b5fd;}
+  .prompt-drop-sub{font-size:10px;color:var(--muted);margin-top:3px;}
+  /* Prompt Negatives tab */
+  .tab.purple-tab{color:#c4b5fd;border-color:rgba(139,92,246,0.3);background:rgba(139,92,246,0.07);}
+  .tab.purple-tab .tab-badge{background:#8b5cf6;color:#fff;}
+  .tab.active.purple-tab{color:#fff;background:#8b5cf6;border-color:#8b5cf6;}
+  .tab.active.purple-tab .tab-badge{background:rgba(0,0,0,0.18);color:#fff;}
+  .callout-purple{background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.25);color:#c4b5fd;}
   </style>
 </head>
 <body>
@@ -317,6 +370,8 @@
       <input type="text" class="config-input" id="account-name" placeholder="e.g. Stomp Rocket, Client Name...">
     </div>
 
+    <!-- Prompt Report Add-on -->
+
     <div class="config-row">
       <label class="config-label">Brand Terms to Exclude from New Targets</label>
       <input type="text" class="config-input" id="brand-terms" placeholder="e.g. stomp rocket, stomp racer, brand name...">
@@ -324,7 +379,11 @@
     </div>
 
     <div class="config-row">
-      <div class="asin-section-title">Exclude Your ASINs from New Targets</div>
+      <div class="asin-section-title">Exclude Your ASINs from New Targets
+        <span class="help-dot">?
+          <span class="help-tooltip">For an easy full ASIN list, go to Vendo Velocity → Products Report, export ASINs, then ask Claude to <strong style="color:var(--green)">"extract all ASINs in an easy to copy list"</strong> — then paste here.</span>
+        </span>
+      </div>
       <div class="asin-boxes">
 
         <!-- Paste box -->
@@ -376,19 +435,29 @@
     </div>
   </div>
 
-  <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
-    <div class="drop-icon">📂</div>
-    <div class="drop-label">Drop your .xlsx file here</div>
-    <div class="drop-hint">or click to browse</div>
-    <button class="upload-btn" onclick="event.stopPropagation();document.getElementById('file-input').click()">Choose File</button>
+  <div class="upload-type-tabs sp-active" id="upload-type-tabs">
+    <button class="upload-type-tab active-sp" id="upload-tab-sp" onclick="setUploadType('sp')">SP SEARCH TERM REPORT <span id="sp-tab-check" style="display:none;color:var(--green)">✓</span></button>
+    <button class="upload-type-tab" id="upload-tab-prompt" onclick="setUploadType('prompt')">PROMPT REPORT <span id="prompt-tab-check" style="display:none;color:#c4b5fd">✓</span></button>
+  </div>
+  <div class="drop-zone" id="drop-zone">
+    <div class="drop-icon" id="drop-icon">📂</div>
+    <div class="drop-label" id="drop-label">Drop your .xlsx file here</div>
+    <div class="drop-hint" id="drop-hint">or click to browse</div>
+    <button class="upload-btn" id="drop-btn" onclick="triggerUpload()">Choose File</button>
   </div>
   <input type="file" id="file-input" accept=".xlsx,.xls" onchange="onFileSelected(this.files[0])">
   <input type="file" id="asin-file-input" accept=".xlsx,.csv" onchange="handleAsinReport(this)">
+  <input type="file" id="prompt-file-input" accept=".xlsx,.csv" onchange="handlePromptReport(this)" style="position:fixed;top:-9999px;left:-9999px;opacity:0;">
 
   <div class="file-preview" id="file-preview">
     <span class="file-preview-icon">✅</span>
     <span class="file-preview-name" id="file-preview-name"></span>
     <button class="file-preview-clear" onclick="clearFile()" title="Remove file">✕</button>
+  </div>
+  <div class="file-preview" id="prompt-file-preview" style="background:rgba(139,92,246,0.1);border-color:rgba(139,92,246,0.3);">
+    <span class="file-preview-icon">✅</span>
+    <span class="file-preview-name" id="prompt-file-preview-name" style="color:#c4b5fd;"></span>
+    <button class="file-preview-clear" onclick="clearPromptFile()" title="Remove file">✕</button>
   </div>
 
   <button class="start-btn" id="start-btn" onclick="startAnalysis()">
@@ -489,6 +558,8 @@
     <div class="tab active green-tab" id="tab-btn-nt-keywords" onclick="showTab('nt-keywords',this)">KW Targets <span class="tab-badge" id="nt-kw-badge">0</span></div>
     <div class="tab blue-tab" id="tab-btn-nt-asins" onclick="showTab('nt-asins',this)">ASIN Targets <span class="tab-badge" id="nt-asin-badge">0</span></div>
     <div class="tab red-tab" id="tab-btn-negatives" onclick="showTab('negatives',this)">Negatives <span class="tab-badge red" id="neg-badge">0</span></div>
+    <div class="tab amber-tab" id="tab-btn-slippage" onclick="showTab('slippage',this)">Brand Slippage <span class="tab-badge" id="slip-badge">0</span></div>
+    <div class="tab purple-tab" id="tab-btn-prompt-neg" onclick="showTab('prompt-neg',this)" style="display:none">Prompt Negatives <span class="tab-badge" id="prompt-neg-badge">0</span></div>
     <div class="tab tab-help-btn" id="tab-btn-help-tab" onclick="showTab('help',this)">How to Use</div>
   </div>
 
@@ -774,6 +845,137 @@
   </div>
 
   <!-- HELP TAB -->
+  <!-- BRAND SLIPPAGE TAB -->
+  <!-- PROMPT NEGATIVES TAB -->
+  <div class="content" id="tab-prompt-neg">
+    <div class="callout callout-purple">
+      <span class="callout-icon">📋</span>
+      <div>Prompts from your Sponsored Products campaigns that are <strong>spending with zero sales</strong> or <strong>high ACOS</strong>. Negate these prompts to stop wasting budget.</div>
+    </div>
+    <details class="inline-settings" id="prompt-neg-settings">
+      <summary><span class="settings-icon">⚙</span> Edit Filters &amp; Thresholds</summary>
+      <div class="settings-body">
+        <div class="toggle-row">
+          <span class="toggle-label-text">Threshold Mode</span>
+          <div class="toggle-wrap">
+            <span class="toggle-state auto" id="prompt-neg-toggle-state">AUTO</span>
+            <label class="toggle"><input type="checkbox" id="prompt-neg-auto-toggle" checked onchange="onPromptNegToggle(this)"><span class="toggle-slider"></span></label>
+          </div>
+        </div>
+        <div class="settings-row settings-row-3">
+          <div class="settings-field">
+            <label>Min Spend ($)</label>
+            <input type="number" id="prompt-thresh-spend" class="settings-input" min="0.5" step="0.5" value="3" oninput="applyPromptNegSettings()">
+          </div>
+          <div class="settings-field">
+            <label>High ACOS (%)</label>
+            <input type="number" id="prompt-thresh-acos" class="settings-input" min="50" step="5" value="100" oninput="applyPromptNegSettings()">
+          </div>
+          <div class="settings-field">
+            <label><span id="prompt-neg-count-preview" style="color:#c4b5fd;font-weight:700"></span> prompts match</label>
+            <button class="settings-apply-btn" style="background:#8b5cf6" onclick="applyPromptNegSettings()">Apply</button>
+          </div>
+        </div>
+      </div>
+    </details>
+    <div class="filters">
+      <span class="filter-label">FILTER:</span>
+      <input type="text" class="filter-input" id="prompt-neg-search" placeholder="Search prompts or campaigns..." oninput="renderPromptNeg()" style="min-width:240px">
+      <select class="filter-input" id="prompt-neg-sort" onchange="renderPromptNeg()" style="min-width:180px">
+        <option value="urgency">Priority (Worst first)</option>
+        <option value="spend">Spend (High first)</option>
+        <option value="acos">ACOS (High first)</option>
+        <option value="clicks">Clicks (High first)</option>
+      </select>
+      <select class="filter-input" id="prompt-neg-reason" onchange="renderPromptNeg()" style="min-width:150px">
+        <option value="all">All Reasons</option>
+        <option value="zero">Zero Sales</option>
+        <option value="highacos">High ACOS</option>
+      </select>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Prompt</th><th>Campaign</th><th>Ad Group</th>
+          <th>Clicks</th><th>Spend</th><th>Sales</th><th>Orders</th><th>ACOS</th><th>Reason</th>
+        </tr></thead>
+        <tbody id="prompt-neg-tbody"></tbody>
+      </table>
+    </div>
+    <div class="export-bar">
+      <span class="export-info" id="prompt-neg-count">Showing 0 prompts</span>
+      <button class="export-btn" onclick="exportCSV('prompt-neg')">Download CSV</button>
+    </div>
+  </div>
+
+  <div class="content" id="tab-slippage">
+    <div class="callout" style="background:rgba(255,214,0,0.07);border:1px solid rgba(255,214,0,0.25);color:#ffe87a;">
+      <span class="callout-icon">⚠️</span>
+      <div>Branded search terms and your own ASINs that are <strong>converting in Non-Branded (NB) campaigns</strong>. This means you're paying NB CPCs for traffic that should be captured by your branded campaigns at a lower cost.</div>
+    </div>
+    <details class="inline-settings" id="slip-settings">
+      <summary><span class="settings-icon">⚙</span> Edit Filters &amp; Thresholds</summary>
+      <div class="settings-body">
+        <div class="settings-row">
+          <div class="settings-field">
+            <label>Brand Terms</label>
+            <input type="text" id="slip-brand-terms" class="settings-input" placeholder="e.g. stomp rocket, brand name..." oninput="applySlippageSettings()">
+            <span class="settings-hint">Auto-filled from upload screen — terms matching these are flagged as brand slippage</span>
+          </div>
+        </div>
+        <div class="settings-row">
+          <div class="settings-field">
+            <label>Your ASINs</label>
+            <textarea id="slip-asin-input" class="settings-input" rows="3" placeholder="Paste your own ASINs — one per line or comma-separated" oninput="applySlippageSettings()" style="resize:vertical;font-family:var(--mono);font-size:11px;min-height:60px;"></textarea>
+            <span class="settings-hint">Auto-filled from upload screen — your ASINs appearing in NB campaigns are flagged</span>
+          </div>
+        </div>
+        <div class="settings-row settings-row-3">
+          <div class="settings-field">
+            <label>Min Clicks</label>
+            <input type="number" id="slip-thresh-clicks" class="settings-input" min="1" value="1" oninput="applySlippageSettings()">
+          </div>
+          <div class="settings-field">
+            <label>Min Spend</label>
+            <input type="number" id="slip-thresh-spend" class="settings-input" min="0" step="0.5" value="0.50" oninput="applySlippageSettings()">
+          </div>
+          <div class="settings-field">
+            <label><span id="slip-count-preview" style="color:var(--amber);font-weight:700"></span> instances match</label>
+            <button class="settings-apply-btn" style="background:var(--amber);color:#0a0c10" onclick="applySlippageSettings()">Apply</button>
+          </div>
+        </div>
+      </div>
+    </details>
+    <div class="filters">
+      <span class="filter-label">FILTER:</span>
+      <input type="text" class="filter-input" id="slip-search" placeholder="Search terms or campaigns..." oninput="renderSlippage()" style="min-width:220px">
+      <select class="filter-input" id="slip-type-filter" onchange="renderSlippage()" style="min-width:150px">
+        <option value="all">All Types</option>
+        <option value="kw">Keywords only</option>
+        <option value="asin">ASINs only</option>
+      </select>
+      <select class="filter-input" id="slip-sort" onchange="renderSlippage()" style="min-width:180px">
+        <option value="spend">Spend (High first)</option>
+        <option value="sales">Sales (High first)</option>
+        <option value="clicks">Clicks (High first)</option>
+        <option value="orders">Orders (High first)</option>
+      </select>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Search Term / ASIN</th><th>Type</th><th>Campaign</th>
+          <th>Clicks</th><th>Spend</th><th>Sales</th><th>Orders</th><th>ACOS</th>
+        </tr></thead>
+        <tbody id="slip-tbody"></tbody>
+      </table>
+    </div>
+    <div class="export-bar">
+      <span class="export-info" id="slip-count">Showing 0 instances</span>
+      <button class="export-btn" onclick="exportCSV('slip')">Download CSV</button>
+    </div>
+  </div>
+
   <div class="content" id="tab-help">
     <div class="help-header">
       <h2 class="help-title">How to Use the Vendo Search Term Analyzer</h2>
@@ -884,11 +1086,18 @@ let NT_KW_DATA = [], NT_ASIN_DATA = [];
 
 // ── DRAG & DROP ──
 const dropZone = document.getElementById('drop-zone');
+dropZone.addEventListener('click', () => triggerUpload());
 dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
 dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
 dropZone.addEventListener('drop', e => {
   e.preventDefault(); dropZone.classList.remove('drag-over');
-  onFileSelected(e.dataTransfer.files[0]);
+  const file = e.dataTransfer.files[0];
+  if (!file) return;
+  if (window._UPLOAD_TYPE === 'prompt') {
+    handlePromptFile(file);
+  } else {
+    onFileSelected(file);
+  }
 });
 
 let _pendingFile = null;
@@ -980,11 +1189,13 @@ function resetAsinBox() {
 function onFileSelected(file) {
   if (!file) return;
   _pendingFile = file;
-  // Hide drop zone, show file preview + start button
-  dropZone.style.display = 'none';
+  // Show file preview — keep drop zone visible so prompt tab still works
   { const _el_file_preview_name=document.getElementById('file-preview-name'); if(_el_file_preview_name) _el_file_preview_name.textContent=file.name; }
   { const _el_file_preview=document.getElementById('file-preview'); if(_el_file_preview) _el_file_preview.classList.add('visible'); }
+  { const _el=document.getElementById('sp-tab-check'); if(_el) _el.style.display='inline'; }
   { const _el_start_btn=document.getElementById('start-btn'); if(_el_start_btn) _el_start_btn.classList.add('visible'); }
+  // Hide drop zone only if we're on the SP tab (prompt tab still needs it)
+  if (window._UPLOAD_TYPE !== 'prompt') dropZone.style.display = 'none';
 }
 
 function clearFile() {
@@ -992,6 +1203,7 @@ function clearFile() {
   document.getElementById('file-input').value = '';
   { const _el_file_preview=document.getElementById('file-preview'); if(_el_file_preview) _el_file_preview.classList.remove('visible'); }
   { const _el_start_btn=document.getElementById('start-btn'); if(_el_start_btn) _el_start_btn.classList.remove('visible'); }
+  { const _el=document.getElementById('sp-tab-check'); if(_el) _el.style.display='none'; }
   dropZone.style.display = '';
 }
 
@@ -1018,7 +1230,7 @@ function show(s) {
   document.getElementById('dashboard').style.display = s==='dashboard' ? 'block' : 'none';
 }
 function resetToUpload() {
-  NT_DATA=[]; NEG_DATA=[]; NT_ASIN_DATA=[]; window._NEG_MODE=false; window._NEG_DONE=new Set(); window._NEG_CAMP_FILTER='';
+  NT_DATA=[]; NEG_DATA=[]; NT_ASIN_DATA=[]; SLIP_DATA=[]; PROMPT_NEG_DATA=[]; window._NEG_MODE=false; window._NEG_DONE=new Set(); window._NEG_CAMP_FILTER='';
   // Clear all attribution window state so next report starts fresh
   window._RAW_ROWS = null;
   window._ALL_KEYS = null;
@@ -1258,6 +1470,8 @@ function processData(rows) {
   if (dashAsinEl && uploadAsins.trim()) dashAsinEl.value = uploadAsins.trim();
   // Pre-fill ASIN tab settings too
   { const el = document.getElementById('dash-brand-terms-asin'); if (el) el.value = document.getElementById('brand-terms').value; }
+  { const el = document.getElementById('slip-brand-terms'); if (el) el.value = document.getElementById('brand-terms').value; }
+  { const el = document.getElementById('slip-asin-input'); if (el && uploadAsins.trim()) el.value = uploadAsins.trim(); }
   { const el = document.getElementById('dash-asin-input-asin'); if (el && uploadAsins.trim()) el.value = uploadAsins.trim(); }
   // Sync attribution window to ASIN tab
   { const kw = document.getElementById('attr-window'); const asin = document.getElementById('attr-window-asin'); if (kw && asin) asin.value = kw.value; }
@@ -1284,8 +1498,9 @@ function processData(rows) {
   show('dashboard');
   updateNTCountPreview();
   updateNegCountPreview();
-  renderNTKeywords();
+  applyNTSettings();
   applyNTAsinSettings();
+  applySlippageSettings();
   renderNeg();
 }
 
@@ -1665,6 +1880,343 @@ function renderNTAsins() {
 }
 
 window._NEG_CAMP_FILTER = '';
+let PROMPT_RAW = [];
+let PROMPT_NEG_DATA = [];
+
+window._UPLOAD_TYPE = 'sp';
+
+function setUploadType(type) {
+  window._UPLOAD_TYPE = type;
+  const spTab      = document.getElementById('upload-tab-sp');
+  const promptTab  = document.getElementById('upload-tab-prompt');
+  const tabsEl     = document.getElementById('upload-type-tabs');
+  const zone       = document.getElementById('drop-zone');
+  const label      = document.getElementById('drop-label');
+  const hint       = document.getElementById('drop-hint');
+  const btn        = document.getElementById('drop-btn');
+
+  if (type === 'sp') {
+    if (spTab)     spTab.className = 'upload-type-tab active-sp';
+    if (promptTab) promptTab.className = 'upload-type-tab';
+    if (tabsEl)    tabsEl.className = 'upload-type-tabs sp-active';
+    if (zone)      { zone.className = 'drop-zone'; }
+    if (label)     label.textContent = 'Drop your .xlsx file here';
+    if (hint)      hint.textContent  = 'or click to browse';
+    if (btn)       { btn.textContent = 'Choose File'; btn.style.background = ''; }
+    { const ic = document.getElementById('drop-icon'); if(ic) ic.textContent = '📂'; }
+    // Hide drop zone if SP file already loaded
+    if (zone) zone.style.display = _pendingFile ? 'none' : '';
+  } else {
+    if (spTab)     spTab.className = 'upload-type-tab';
+    if (promptTab) promptTab.className = 'upload-type-tab active-prompt';
+    if (tabsEl)    tabsEl.className = 'upload-type-tabs prompt-active';
+    if (zone)      zone.className = 'drop-zone prompt-mode';
+    if (label)     label.textContent = 'Drop your Prompts Report here';
+    if (hint)      hint.textContent  = 'Sponsored Products Prompts Report (.xlsx / .csv)';
+    if (btn)       { btn.textContent = 'Choose File'; btn.style.background = '#8b5cf6'; }
+    { const ic = document.getElementById('drop-icon'); if(ic) ic.textContent = '📋'; }
+    // Hide drop zone if prompt already loaded, show otherwise
+    if (zone) zone.style.display = PROMPT_RAW.length > 0 ? 'none' : '';
+  }
+  // Always keep both previews visible — never hide them on tab switch
+}
+
+function clearPromptFile() {
+  PROMPT_RAW = []; PROMPT_NEG_DATA = [];
+  const prev = document.getElementById('prompt-file-preview');
+  if (prev) { prev.classList.remove('visible'); prev.style.display = 'none'; }
+  const tabBtn = document.getElementById('tab-btn-prompt-neg');
+  if (tabBtn) tabBtn.style.display = 'none';
+  document.getElementById('prompt-file-input').value = '';
+  const badge = document.getElementById('prompt-neg-badge');
+  if (badge) badge.textContent = '0';
+  { const _el=document.getElementById('prompt-tab-check'); if(_el) _el.style.display='none'; }
+  // Restore drop zone if on prompt tab
+  if (window._UPLOAD_TYPE === 'prompt') {
+    const dz = document.getElementById('drop-zone');
+    if (dz) dz.style.display = '';
+  }
+}
+
+function triggerUpload() {
+  if (window._UPLOAD_TYPE === 'prompt') {
+    document.getElementById('prompt-file-input').click();
+  } else {
+    document.getElementById('file-input').click();
+  }
+}
+
+function togglePromptAddon() {
+  const body   = document.getElementById('prompt-addon-body');
+  const title  = document.getElementById('prompt-addon-title');
+  const card   = document.getElementById('prompt-addon-card');
+  if (!body) return;
+  const open = body.style.display === 'block';
+  body.style.display = open ? 'none' : 'block';
+  if (card) {
+    card.style.borderColor = open ? 'rgba(139,92,246,0.25)' : 'rgba(139,92,246,0.5)';
+    card.style.background  = open ? 'rgba(139,92,246,0.03)' : 'rgba(139,92,246,0.07)';
+  }
+}
+
+function handlePromptReport(input) {
+  const file = input.files[0];
+  if (!file) return;
+  handlePromptFile(file);
+}
+
+function handlePromptFile(file) {
+  const label = document.getElementById('prompt-drop-label');
+  const sub   = document.getElementById('prompt-drop-sub');
+  const zone  = document.getElementById('prompt-drop-zone');
+  const card  = document.getElementById('prompt-addon-card');
+
+  const ext = file.name.split('.').pop().toLowerCase();
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      let rows = [];
+      if (ext === 'xlsx' || ext === 'xls') {
+        const wb = XLSX.read(new Uint8Array(e.target.result), {type:'array'});
+        const ws = wb.Sheets[wb.SheetNames[0]];
+        rows = XLSX.utils.sheet_to_json(ws, {defval:''});
+      } else {
+        const text = new TextDecoder().decode(e.target.result);
+        rows = XLSX.utils.sheet_to_json(XLSX.read(text,{type:'string'}).Sheets[Object.keys(XLSX.read(text,{type:'string'}).Sheets)[0]],{defval:''});
+      }
+      // Normalise column names
+      PROMPT_RAW = rows.map(r => {
+        const get = (...keys) => { for (const k of keys) { const v = r[Object.keys(r).find(c=>c.toLowerCase().includes(k.toLowerCase()))]; if(v!==undefined&&v!=='') return v; } return 0; };
+        return {
+          prompt:   String(get('Prompt details','prompt') || '').trim(),
+          campaign: String(get('Campaign Name','campaign') || '').trim(),
+          ad_group: String(get('Ad Group','ad group') || '').trim(),
+          clicks:   +get('Clicks') || 0,
+          spend:    +get('Spend') || 0,
+          sales:    +get('Sales') || 0,
+          orders:   +get('Orders','7 Day Total Orders') || 0,
+          impressions: +get('Impressions') || 0,
+        };
+      }).filter(r => r.prompt);
+
+      // Show purple file preview row
+      const pprev = document.getElementById('prompt-file-preview');
+      const pname = document.getElementById('prompt-file-preview-name');
+      if (pname) pname.textContent = file.name;
+      if (pprev) { pprev.classList.add('visible'); pprev.style.display = 'flex'; }
+      { const _el=document.getElementById('prompt-tab-check'); if(_el) _el.style.display='inline'; }
+      // Keep SP preview visible if it was loaded
+      const spPrev = document.getElementById('file-preview');
+      if (spPrev && _pendingFile) spPrev.classList.add('visible');
+      // Hide drop zone now that prompt is loaded
+      const dz = document.getElementById('drop-zone');
+      if (dz) dz.style.display = 'none';
+      // Show tab
+      const tabBtn = document.getElementById('tab-btn-prompt-neg');
+      if (tabBtn) tabBtn.style.display = '';
+      applyPromptNegSettings();
+    } catch(err) { alert('Could not parse prompts report: ' + err.message); }
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+function applyPromptNegSettings() {
+  if (!PROMPT_RAW.length) return;
+  const minSpend = parseFloat(document.getElementById('prompt-thresh-spend')?.value) || 3;
+  const maxAcos  = parseFloat(document.getElementById('prompt-thresh-acos')?.value) / 100 || 1;
+
+  // Aggregate by prompt + campaign
+  const aggMap = {};
+  for (const r of PROMPT_RAW) {
+    const key = r.prompt + '||' + r.campaign;
+    if (!aggMap[key]) aggMap[key] = {...r, spend:0, sales:0, clicks:0, orders:0, impressions:0};
+    const a = aggMap[key];
+    a.spend += r.spend; a.sales += r.sales; a.clicks += r.clicks;
+    a.orders += r.orders; a.impressions += r.impressions;
+  }
+
+  PROMPT_NEG_DATA = Object.values(aggMap).map(a => {
+    const acos = a.sales > 0 ? a.spend / a.sales : null;
+    const isZero = a.sales === 0 && a.spend >= minSpend;
+    const isHigh = acos !== null && acos > maxAcos && a.spend >= minSpend;
+    const urgency = isZero ? (a.spend * 2) : (isHigh ? a.spend * acos : 0);
+    return {...a, acos, isZero, isHigh, urgency, spend:+a.spend.toFixed(2), sales:+a.sales.toFixed(2)};
+  }).filter(a => a.isZero || a.isHigh)
+    .sort((a,b) => b.urgency - a.urgency);
+
+  const badge = document.getElementById('prompt-neg-badge');
+  if (badge) badge.textContent = PROMPT_NEG_DATA.length;
+  const prev = document.getElementById('prompt-neg-count-preview');
+  if (prev) prev.textContent = PROMPT_NEG_DATA.length;
+  renderPromptNeg();
+}
+
+function onPromptNegToggle(cb) {
+  const isAuto = cb.checked;
+  setToggleState(document.getElementById('prompt-neg-toggle-state'), isAuto);
+  const spend = document.getElementById('prompt-thresh-spend');
+  const acos  = document.getElementById('prompt-thresh-acos');
+  if (isAuto) {
+    spend.value = 3; acos.value = 100;
+    spend.style.opacity='0.5'; spend.readOnly=true;
+    acos.style.opacity='0.5';  acos.readOnly=true;
+    applyPromptNegSettings();
+  } else {
+    spend.style.opacity='1'; spend.readOnly=false;
+    acos.style.opacity='1';  acos.readOnly=false;
+  }
+}
+
+function renderPromptNeg() {
+  const tbody = document.getElementById('prompt-neg-tbody');
+  if (!tbody) return;
+  const q      = (document.getElementById('prompt-neg-search')?.value || '').toLowerCase();
+  const sort   = document.getElementById('prompt-neg-sort')?.value || 'urgency';
+  const reason = document.getElementById('prompt-neg-reason')?.value || 'all';
+
+  let data = [...PROMPT_NEG_DATA];
+  if (q) data = data.filter(r => r.prompt.toLowerCase().includes(q) || r.campaign.toLowerCase().includes(q));
+  if (reason === 'zero')    data = data.filter(r => r.isZero);
+  if (reason === 'highacos') data = data.filter(r => r.isHigh && !r.isZero);
+  if (sort === 'urgency') data.sort((a,b) => b.urgency - a.urgency);
+  if (sort === 'spend')   data.sort((a,b) => b.spend - a.spend);
+  if (sort === 'acos')    data.sort((a,b) => (b.acos||0) - (a.acos||0));
+  if (sort === 'clicks')  data.sort((a,b) => b.clicks - a.clicks);
+
+  tbody.innerHTML = '';
+  data.forEach(row => {
+    const acosStr = row.acos !== null ? (row.acos*100).toFixed(1)+'%' : '—';
+    const acosC   = row.acos === null ? '' : row.acos < 0.5 ? 'color:var(--amber)' : 'color:var(--red)';
+    const reason  = row.isZero
+      ? '<span class="neg-reason-pill zero">Zero Sales</span>'
+      : '<span class="neg-reason-pill high-acos">High ACOS</span>';
+    const campShort = row.campaign.replace(/Vendo \| |PLTFRM \| /g,'');
+    const adShort   = row.ad_group.replace(/Ad Group - /,'');
+    tbody.innerHTML += `<tr style="border-bottom:1px solid rgba(255,255,255,0.04)">
+      <td class="search-term-cell"><span class="search-term-text" style="color:#c4b5fd">${row.prompt}</span></td>
+      <td style="font-size:11px;color:var(--muted);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${campShort}</td>
+      <td style="font-size:10px;color:var(--muted);max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${adShort}</td>
+      <td class="num">${row.clicks}</td>
+      <td class="num" style="color:var(--red)">$${row.spend.toFixed(2)}</td>
+      <td class="num" style="color:var(--green)">$${row.sales.toFixed(2)}</td>
+      <td class="num">${row.orders}</td>
+      <td class="num" style="${acosC}">${acosStr}</td>
+      <td>${reason}</td>
+    </tr>`;
+  });
+
+  const countEl = document.getElementById('prompt-neg-count');
+  if (countEl) countEl.textContent = `Showing \${data.length} of \${PROMPT_NEG_DATA.length} prompts`;
+}
+let SLIP_DATA = [];
+
+function applySlippageSettings() {
+  const parsed = window._RAW_PARSED;
+  if (!parsed) return;
+
+  const minClicks = parseFloat(document.getElementById('slip-thresh-clicks')?.value) || 1;
+  const minSpend  = parseFloat(document.getElementById('slip-thresh-spend')?.value)  || 0;
+
+  // Brand terms
+  const brandRaw = document.getElementById('slip-brand-terms')?.value || '';
+  const brandTerms = brandRaw.split(',').map(t => t.trim().toLowerCase()).filter(Boolean);
+
+  // Own ASINs
+  const asinRaw = [
+    document.getElementById('asin-paste-input')?.value || '',
+    document.getElementById('dash-asin-input')?.value || '',
+    document.getElementById('slip-asin-input')?.value || ''
+  ].join('\n');
+  const ownAsins = new Set(
+    asinRaw.split(/[\s,;\n]+/).map(a => a.trim().toLowerCase()).filter(a => /^b[a-z0-9]{9}$/.test(a))
+  );
+
+  if (brandTerms.length === 0 && ownAsins.size === 0) {
+    SLIP_DATA = [];
+    renderSlippage();
+    updateSlipBadge();
+    return;
+  }
+
+  // Only look at NB campaigns
+  const nbRows = parsed.filter(r => /\| NB \|/i.test(r.campaign));
+
+  const aggMap = {};
+  for (const r of nbRows) {
+    const key = r.search_term.toLowerCase().trim();
+    const isKW   = brandTerms.length > 0 && brandTerms.some(b => key.includes(b));
+    const isAsin = ownAsins.size > 0 && /^b[a-z0-9]{9}$/.test(key) && ownAsins.has(key);
+    if (!isKW && !isAsin) continue;
+
+    const mapKey = key + '||' + r.campaign;
+    if (!aggMap[mapKey]) aggMap[mapKey] = {
+      search_term: r.search_term, campaign: r.campaign,
+      type: isAsin ? 'asin' : 'kw',
+      clicks: 0, spend: 0, sales: 0, orders: 0, impressions: 0
+    };
+    const a = aggMap[mapKey];
+    a.clicks += r.clicks; a.spend += r.spend;
+    a.sales += r.sales; a.orders += r.orders; a.impressions += r.impressions;
+  }
+
+  SLIP_DATA = Object.values(aggMap)
+    .filter(a => a.clicks >= minClicks && a.spend >= minSpend)
+    .map(a => ({
+      ...a,
+      acos: a.sales > 0 ? a.spend / a.sales : null,
+      spend: +a.spend.toFixed(2), sales: +a.sales.toFixed(2)
+    }))
+    .sort((a, b) => b.spend - a.spend);
+
+  updateSlipBadge();
+  const prev = document.getElementById('slip-count-preview');
+  if (prev) prev.textContent = SLIP_DATA.length;
+  renderSlippage();
+}
+
+function updateSlipBadge() {
+  const el = document.getElementById('slip-badge');
+  if (el) el.textContent = SLIP_DATA.length;
+}
+
+function renderSlippage() {
+  const tbody = document.getElementById('slip-tbody');
+  if (!tbody) return;
+  const q      = (document.getElementById('slip-search')?.value || '').toLowerCase();
+  const type   = document.getElementById('slip-type-filter')?.value || 'all';
+  const sort   = document.getElementById('slip-sort')?.value || 'spend';
+
+  let data = [...SLIP_DATA];
+  if (q)           data = data.filter(r => r.search_term.toLowerCase().includes(q) || r.campaign.toLowerCase().includes(q));
+  if (type !== 'all') data = data.filter(r => r.type === type);
+  if (sort === 'spend')  data.sort((a,b) => b.spend - a.spend);
+  if (sort === 'sales')  data.sort((a,b) => b.sales - a.sales);
+  if (sort === 'clicks') data.sort((a,b) => b.clicks - a.clicks);
+  if (sort === 'orders') data.sort((a,b) => b.orders - a.orders);
+
+  tbody.innerHTML = '';
+  data.forEach(row => {
+    const acosStr = row.acos !== null ? (row.acos * 100).toFixed(1) + '%' : 'N/A';
+    const acosC   = row.acos === null ? '' : row.acos < 0.35 ? 'color:var(--green)' : row.acos < 0.6 ? 'color:var(--amber)' : 'color:var(--red)';
+    const pill    = row.type === 'asin'
+      ? '<span class="slip-pill slip-pill-asin">ASIN</span>'
+      : '<span class="slip-pill slip-pill-kw">KEYWORD</span>';
+    const campShort = row.campaign.replace(/Vendo \| /,'');
+    tbody.innerHTML += `<tr style="border-bottom:1px solid rgba(255,255,255,0.04)">
+      <td class="search-term-cell"><span class="search-term-text" style="${row.type==='asin'?'font-family:var(--mono);color:var(--blue)':'color:var(--amber)'}">${row.search_term}</span></td>
+      <td>${pill}</td>
+      <td style="font-size:11px;color:var(--muted);max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${campShort}</td>
+      <td class="num">${row.clicks}</td>
+      <td class="num" style="color:var(--amber)">$${row.spend.toFixed(2)}</td>
+      <td class="num" style="color:var(--green)">$${row.sales.toFixed(2)}</td>
+      <td class="num">${row.orders}</td>
+      <td class="num" style="${acosC}">${acosStr}</td>
+    </tr>`;
+  });
+
+  const countEl = document.getElementById('slip-count');
+  if (countEl) countEl.textContent = `Showing \${data.length} of \${SLIP_DATA.length} instances`;
+}
 window._NEG_MODE = false;
 window._NEG_DONE = new Set();
 
@@ -1711,8 +2263,124 @@ function setNegCampaignFilter(camp) {
 
 function clearNegCampaignFilter() {
   window._NEG_CAMP_FILTER = '';
-window._NEG_MODE = false;
-window._NEG_DONE = new Set();
+let PROMPT_RAW = [];
+let PROMPT_NEG_DATA = [];
+
+window._UPLOAD_TYPE = 'sp';
+
+
+function triggerUpload() {
+  if (window._UPLOAD_TYPE === 'prompt') {
+    document.getElementById('prompt-file-input').click();
+  } else {
+    document.getElementById('file-input').click();
+  }
+}
+
+function togglePromptAddon() {
+  const body   = document.getElementById('prompt-addon-body');
+  const title  = document.getElementById('prompt-addon-title');
+  const card   = document.getElementById('prompt-addon-card');
+  if (!body) return;
+  const open = body.style.display === 'block';
+  body.style.display = open ? 'none' : 'block';
+  if (card) {
+    card.style.borderColor = open ? 'rgba(139,92,246,0.25)' : 'rgba(139,92,246,0.5)';
+    card.style.background  = open ? 'rgba(139,92,246,0.03)' : 'rgba(139,92,246,0.07)';
+  }
+}
+
+
+function applyPromptNegSettings() {
+  if (!PROMPT_RAW.length) return;
+  const minSpend = parseFloat(document.getElementById('prompt-thresh-spend')?.value) || 3;
+  const maxAcos  = parseFloat(document.getElementById('prompt-thresh-acos')?.value) / 100 || 1;
+
+  // Aggregate by prompt + campaign
+  const aggMap = {};
+  for (const r of PROMPT_RAW) {
+    const key = r.prompt + '||' + r.campaign;
+    if (!aggMap[key]) aggMap[key] = {...r, spend:0, sales:0, clicks:0, orders:0, impressions:0};
+    const a = aggMap[key];
+    a.spend += r.spend; a.sales += r.sales; a.clicks += r.clicks;
+    a.orders += r.orders; a.impressions += r.impressions;
+  }
+
+  PROMPT_NEG_DATA = Object.values(aggMap).map(a => {
+    const acos = a.sales > 0 ? a.spend / a.sales : null;
+    const isZero = a.sales === 0 && a.spend >= minSpend;
+    const isHigh = acos !== null && acos > maxAcos && a.spend >= minSpend;
+    const urgency = isZero ? (a.spend * 2) : (isHigh ? a.spend * acos : 0);
+    return {...a, acos, isZero, isHigh, urgency, spend:+a.spend.toFixed(2), sales:+a.sales.toFixed(2)};
+  }).filter(a => a.isZero || a.isHigh)
+    .sort((a,b) => b.urgency - a.urgency);
+
+  const badge = document.getElementById('prompt-neg-badge');
+  if (badge) badge.textContent = PROMPT_NEG_DATA.length;
+  const prev = document.getElementById('prompt-neg-count-preview');
+  if (prev) prev.textContent = PROMPT_NEG_DATA.length;
+  renderPromptNeg();
+}
+
+function onPromptNegToggle(cb) {
+  const isAuto = cb.checked;
+  setToggleState(document.getElementById('prompt-neg-toggle-state'), isAuto);
+  const spend = document.getElementById('prompt-thresh-spend');
+  const acos  = document.getElementById('prompt-thresh-acos');
+  if (isAuto) {
+    spend.value = 3; acos.value = 100;
+    spend.style.opacity='0.5'; spend.readOnly=true;
+    acos.style.opacity='0.5';  acos.readOnly=true;
+    applyPromptNegSettings();
+  } else {
+    spend.style.opacity='1'; spend.readOnly=false;
+    acos.style.opacity='1';  acos.readOnly=false;
+  }
+}
+
+function renderPromptNeg() {
+  const tbody = document.getElementById('prompt-neg-tbody');
+  if (!tbody) return;
+  const q      = (document.getElementById('prompt-neg-search')?.value || '').toLowerCase();
+  const sort   = document.getElementById('prompt-neg-sort')?.value || 'urgency';
+  const reason = document.getElementById('prompt-neg-reason')?.value || 'all';
+
+  let data = [...PROMPT_NEG_DATA];
+  if (q) data = data.filter(r => r.prompt.toLowerCase().includes(q) || r.campaign.toLowerCase().includes(q));
+  if (reason === 'zero')    data = data.filter(r => r.isZero);
+  if (reason === 'highacos') data = data.filter(r => r.isHigh && !r.isZero);
+  if (sort === 'urgency') data.sort((a,b) => b.urgency - a.urgency);
+  if (sort === 'spend')   data.sort((a,b) => b.spend - a.spend);
+  if (sort === 'acos')    data.sort((a,b) => (b.acos||0) - (a.acos||0));
+  if (sort === 'clicks')  data.sort((a,b) => b.clicks - a.clicks);
+
+  tbody.innerHTML = '';
+  data.forEach(row => {
+    const acosStr = row.acos !== null ? (row.acos*100).toFixed(1)+'%' : '—';
+    const acosC   = row.acos === null ? '' : row.acos < 0.5 ? 'color:var(--amber)' : 'color:var(--red)';
+    const reason  = row.isZero
+      ? '<span class="neg-reason-pill zero">Zero Sales</span>'
+      : '<span class="neg-reason-pill high-acos">High ACOS</span>';
+    const campShort = row.campaign.replace(/Vendo \| |PLTFRM \| /g,'');
+    const adShort   = row.ad_group.replace(/Ad Group - /,'');
+    tbody.innerHTML += `<tr style="border-bottom:1px solid rgba(255,255,255,0.04)">
+      <td class="search-term-cell"><span class="search-term-text" style="color:#c4b5fd">${row.prompt}</span></td>
+      <td style="font-size:11px;color:var(--muted);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${campShort}</td>
+      <td style="font-size:10px;color:var(--muted);max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${adShort}</td>
+      <td class="num">${row.clicks}</td>
+      <td class="num" style="color:var(--red)">$${row.spend.toFixed(2)}</td>
+      <td class="num" style="color:var(--green)">$${row.sales.toFixed(2)}</td>
+      <td class="num">${row.orders}</td>
+      <td class="num" style="${acosC}">${acosStr}</td>
+      <td>${reason}</td>
+    </tr>`;
+  });
+
+  const countEl = document.getElementById('prompt-neg-count');
+  if (countEl) countEl.textContent = `Showing \${data.length} of \${PROMPT_NEG_DATA.length} prompts`;
+}
+let SLIP_DATA = [];
+
 
 function toggleNegMode() {
   window._NEG_MODE = !window._NEG_MODE;
@@ -1959,14 +2627,31 @@ function onNTToggle(cb) {
   const isAuto = cb.checked;
   setToggleState(document.getElementById('nt-toggle-state'), isAuto);
   const fields = document.querySelectorAll('#thresh-clicks, #thresh-orders');
-  fields.forEach(f => { f.style.opacity = isAuto ? '0.5' : '1'; f.readOnly = isAuto; });
+  fields.forEach(f => {
+    f.style.opacity = isAuto ? '0.4' : '1';
+    f.style.pointerEvents = isAuto ? 'none' : '';
+    f.style.userSelect = isAuto ? 'none' : '';
+    f.readOnly = isAuto;
+  });
 }
 function onNegToggle(cb) {
   const isAuto = cb.checked;
   setToggleState(document.getElementById('neg-toggle-state'), isAuto);
   const fields = document.querySelectorAll('#thresh-spend, #thresh-acos');
-  fields.forEach(f => { f.style.opacity = isAuto ? '0.5' : '1'; f.readOnly = isAuto; });
+  fields.forEach(f => {
+    f.style.opacity = isAuto ? '0.4' : '1';
+    f.style.pointerEvents = isAuto ? 'none' : '';
+    f.style.userSelect = isAuto ? 'none' : '';
+    f.readOnly = isAuto;
+  });
 }
+
+// Initialise greyed state on page load (AUTO is default)
+document.querySelectorAll('#thresh-clicks,#thresh-orders,#thresh-spend,#thresh-acos').forEach(f => {
+  f.style.opacity = '0.4';
+  f.style.pointerEvents = 'none';
+  f.readOnly = true;
+});
 
 // Dashboard toggles — when switched to manual, unlock fields; auto restores auto-scaled values
 function onDashNTToggle(cb) {
